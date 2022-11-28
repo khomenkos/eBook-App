@@ -7,12 +7,21 @@
 
 import UIKit
 
+enum Sections: Int {
+    case category = 0
+    case recommended = 1
+    case trendingBooks = 2
+    case topBooks = 3
+}
+
 class HomeViewController: UIViewController {
     
     let sectionTitles: [String] = ["Category", "Recommended", "Trending Books", "Top Books"]
     
     private let homeTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
+        table.backgroundColor = .clear
+        table.separatorStyle = .none
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         table.register(CategoryViewCellTableViewCell.self, forCellReuseIdentifier: CategoryViewCellTableViewCell.identifier)
         return table
@@ -21,7 +30,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
         view.addSubview(homeTable)
         
         homeTable.delegate = self
@@ -30,6 +38,7 @@ class HomeViewController: UIViewController {
         // Setting navigation bar
         title = "Books"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,14 +58,44 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryViewCellTableViewCell.identifier, for: indexPath) as? CategoryViewCellTableViewCell ?? UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier) as? CollectionViewTableViewCell,
+              let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryViewCellTableViewCell.identifier) as? CategoryViewCellTableViewCell else { return UITableViewCell() }
+        switch indexPath.section {
+        case Sections.category.rawValue:
             return cellCategory
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell ?? UITableViewCell()
-            return cell
+        case Sections.recommended.rawValue:
+            ApiManager.shared.getRecommendedBooks { results in
+                switch results {
+                case .success(let books):
+                    cell.configure(with: books)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.trendingBooks.rawValue:
+            ApiManager.shared.getTrendingBooks { results in
+                switch results {
+                case .success(let books):
+                    cell.configure(with: books)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.topBooks.rawValue:
+            ApiManager.shared.getTopBooks { results in
+                switch results {
+                case .success(let books):
+                    cell.configure(with: books)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        default:
+            return UITableViewCell()
         }
+        return cell
     }
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionTitles[section]
@@ -72,6 +111,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                                          height: header.bounds.height)
         header.textLabel?.textColor = .black
         header.textLabel?.text = header.textLabel?.text?.capitalized
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

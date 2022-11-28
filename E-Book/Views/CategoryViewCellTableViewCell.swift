@@ -22,7 +22,6 @@ class CategoryViewCellTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .black
         contentView.addSubview(collectionView)
         
         collectionView.delegate = self
