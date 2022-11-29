@@ -11,12 +11,16 @@ class CategoryViewCellTableViewCell: UITableViewCell {
     
     static let identifier = "CategoryViewCellTableViewCell"
     
+    private var categories = ["Fantasy", "History", "Horror", "Journal", "Humor", "Travel", "Drama", "Poetry"]
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 200, height: 40)
+        layout.itemSize = CGSize(width: 140, height: 30)
         layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -39,13 +43,15 @@ class CategoryViewCellTableViewCell: UITableViewCell {
 }
 
 extension CategoryViewCellTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = UIColor(named: "blue")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.setup(book: categories[indexPath.row])
         return cell
+    }
+        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
     }
 }

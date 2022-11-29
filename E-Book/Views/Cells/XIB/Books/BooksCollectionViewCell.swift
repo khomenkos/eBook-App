@@ -23,13 +23,9 @@ class BooksCollectionViewCell: UICollectionViewCell {
     
     func setup(book: Book) {
         imageView.sd_setImage(with: book.volumeInfo?.imageLinks?.thumbnail?.asUrl)
+        imageView.cornerRadius = 10
         titleLabel.text = book.volumeInfo?.title
         authorsLabel.text = book.volumeInfo?.authors?.first
-        config()
-    }
-    
-    func config() {
-        imageView.cornerRadius = 10
     }
 
 }
