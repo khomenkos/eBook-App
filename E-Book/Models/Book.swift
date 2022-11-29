@@ -14,7 +14,6 @@ struct RecommendedBoks: Codable {
 struct Book: Codable {
     let id: String
     let volumeInfo: VolumeInfo?
-
 }
 
 struct VolumeInfo: Codable {

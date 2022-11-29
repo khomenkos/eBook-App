@@ -23,16 +23,10 @@ class BookCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 20, weight: .medium)
-        return label
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(cellImageView)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +38,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         cellImageView.frame = contentView.bounds
     }
     
-    public func configure(with model: String) {
+    public func setup(with model: String) {
         guard let url = URL(string: model) else { return }
         cellImageView.sd_setImage(with: url, completed: nil)
     }

@@ -22,6 +22,8 @@ class HomeViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .grouped)
         table.backgroundColor = .clear
         table.separatorStyle = .none
+        table.showsVerticalScrollIndicator = false
+        
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         table.register(CategoryViewCellTableViewCell.self, forCellReuseIdentifier: CategoryViewCellTableViewCell.identifier)
         return table
@@ -104,12 +106,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.font = .systemFont(ofSize: 16,
-                                             weight: .medium)
+                                             weight: .bold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20,
                                          y: header.bounds.origin.y,
                                          width: 100,
                                          height: header.bounds.height)
-        header.textLabel?.textColor = .black
+        header.textLabel?.textColor = .darkGray
         header.textLabel?.text = header.textLabel?.text?.capitalized
         
     }
