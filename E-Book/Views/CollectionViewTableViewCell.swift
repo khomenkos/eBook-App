@@ -11,7 +11,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     
     static let identifier = "CollectionViewTableViewCell"
     
-    private var titles: [Book] = [Book]()
+    private var books: [Book] = [Book]()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -21,11 +21,11 @@ class CollectionViewTableViewCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         
-//         Register cell
+///         Register cell
 
 //        collectionView.register(BooksCollectionViewCell.self, forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
         
-//        Register cell using xib
+///        Register cell using xib
         
         collectionView.register(UINib(nibName: BooksCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
         return collectionView
@@ -34,7 +34,6 @@ class CollectionViewTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(collectionView)
-        
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -48,8 +47,8 @@ class CollectionViewTableViewCell: UITableViewCell {
         collectionView.frame = contentView.bounds
     }
     
-    public func configure(with titles: [Book]) {
-        self.titles = titles
+    public func configure(with books: [Book]) {
+        self.books = books
         
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
@@ -67,14 +66,23 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         //guard let model = titles[indexPath.row].volumeInfo?.imageLinks?.thumbnail else { return UICollectionViewCell() }
 
         //cell.setup(with: model)
-        
+
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.identifier, for: indexPath) as? BooksCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.setup(book: titles[indexPath.row])
+        cell.setup(book: books[indexPath.row])
         return cell
     }
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return titles.count
+        return books.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+//        let books = books[indexPath.row]
+//        guard let booksTitle = books.volumeInfo?.title else { return }
+//        
+
     }
 }

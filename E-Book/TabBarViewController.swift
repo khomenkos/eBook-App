@@ -15,8 +15,8 @@ class TabBarViewController: UITabBarController {
         view.backgroundColor = .systemBackground
         
         let vc1 = UINavigationController(rootViewController: HomeViewController())
-        let vc2 = UINavigationController(rootViewController: MyBooksViewController())
-        let vc3 = UINavigationController(rootViewController: SearchViewController())
+        let vc2 = UINavigationController(rootViewController: SearchViewController())
+        let vc3 = UINavigationController(rootViewController: MyBooksViewController())
         
         vc1.tabBarItem.image = UIImage(systemName: "house")
         vc2.tabBarItem.image = UIImage(systemName: "magnifyingglass")

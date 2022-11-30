@@ -10,13 +10,8 @@ import UIKit
 class CategoryCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "CategoryCollectionViewCell"
-
     
     @IBOutlet weak var categoryTitle: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
     
     func setup(book: String) {
         categoryTitle.text = book

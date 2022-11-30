@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecommendedBoks: Codable {
+struct RecommendedBooks: Codable {
     let items: [Book]
 }
 
@@ -22,6 +22,7 @@ struct VolumeInfo: Codable {
     let description: String?
     let pageCount: Int
     let imageLinks: ImageLinks?
+    let averageRating: Float?
 }
 
 struct ImageLinks: Codable {

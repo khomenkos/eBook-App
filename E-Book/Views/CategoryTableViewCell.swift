@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CategoryViewCellTableViewCell: UITableViewCell {
+class CategoryTableViewCell: UITableViewCell {
     
-    static let identifier = "CategoryViewCellTableViewCell"
+    static let identifier = "CategoryTableViewCell"
     
     private var categories = ["Fantasy", "History", "Horror", "Journal", "Humor", "Travel", "Drama", "Poetry"]
     
@@ -42,7 +42,7 @@ class CategoryViewCellTableViewCell: UITableViewCell {
     }
 }
 
-extension CategoryViewCellTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CategoryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }

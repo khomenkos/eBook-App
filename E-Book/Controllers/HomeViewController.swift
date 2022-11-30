@@ -25,13 +25,12 @@ class HomeViewController: UIViewController {
         table.showsVerticalScrollIndicator = false
         
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
-        table.register(CategoryViewCellTableViewCell.self, forCellReuseIdentifier: CategoryViewCellTableViewCell.identifier)
+        table.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.identifier)
         return table
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(homeTable)
         
         homeTable.delegate = self
@@ -60,8 +59,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier) as? CollectionViewTableViewCell,
-              let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryViewCellTableViewCell.identifier) as? CategoryViewCellTableViewCell else { return UITableViewCell() }
+              let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier) as? CategoryTableViewCell else { return UITableViewCell() }
         switch indexPath.section {
         case Sections.category.rawValue:
             return cellCategory
