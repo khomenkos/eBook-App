@@ -39,7 +39,6 @@ class HomeViewController: UIViewController {
         // Setting navigation bar
         title = "Books"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,10 +58,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier) as? CollectionViewTableViewCell,
               let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier) as? CategoryTableViewCell else { return UITableViewCell() }
+        
+        cell.delegate = self
+        
         switch indexPath.section {
         case Sections.category.rawValue:
             return cellCategory
@@ -99,7 +99,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionTitles[section]
     }
@@ -114,7 +113,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                                          height: header.bounds.height)
         header.textLabel?.textColor = .darkGray
         header.textLabel?.text = header.textLabel?.text?.capitalized
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -129,3 +127,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension HomeViewController: CollectionViewTableViewCellDelegate {
+    func collectionViewTableViewCellDidTabCell(_ cell: CollectionViewTableViewCell, viewModel: DetailViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = DetailViewController()
+            vc.setup(book: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+    }
+}

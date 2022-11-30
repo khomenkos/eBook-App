@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
     
     private let searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
-        controller.searchBar.placeholder = "Search for a Books"
+        controller.searchBar.placeholder = "Search for a Book"
         controller.searchBar.searchBarStyle = .minimal
         return controller
     }()
@@ -34,17 +34,14 @@ class SearchViewController: UIViewController {
         
         searchTable.delegate = self
         searchTable.dataSource = self
+        searchController.searchResultsUpdater = self
+        fetchData()
         
         // Setting navigation bar
         title = "Search"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
-        
         navigationItem.searchController = searchController
-        
-        fetch()
-        
-        searchController.searchResultsUpdater = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,7 +49,7 @@ class SearchViewController: UIViewController {
         searchTable.frame = view.bounds
     }
     
-    private func fetch() {
+    private func fetchData() {
         ApiManager.shared.getTrendingBooks { [weak self] result in
             switch result {
             case .success(let books):
@@ -75,9 +72,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as? SearchTableViewCell else { return UITableViewCell() }
-        
+        cell.selectionStyle = .none
         let bookCell = books[indexPath.row]
-        cell.setup(book: BookViewModel(title: bookCell.volumeInfo?.title ?? "unknown", authors: bookCell.volumeInfo?.authors?.first ?? "unknown", imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ", averageRating: bookCell.volumeInfo?.averageRating ?? 0))
+        cell.setup(book: BookViewModel(title: bookCell.volumeInfo?.title ?? "unknown",
+                                       authors: bookCell.volumeInfo?.authors?.first ?? "unknown",
+                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ",
+                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0))
         
         return cell
     }
@@ -85,9 +85,30 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 110
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let bookCell = self.books[indexPath.row]
+        let vc = DetailViewController()
+        vc.setup(book: DetailViewModel(title: bookCell.volumeInfo?.title ?? "unknown",
+                                       authors: bookCell.volumeInfo?.authors?.first ?? "unknown",
+                                       description: bookCell.volumeInfo?.description ?? "unknown",
+                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ",
+                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0))
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
-extension SearchViewController: UISearchResultsUpdating {
+extension SearchViewController: UISearchResultsUpdating, SearchResultsViewControllerDelegate {
+    func searchResultsViewControllerDidTapItem(_ viewModel: DetailViewModel) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = DetailViewController()
+            vc.setup(book: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         
@@ -95,6 +116,8 @@ extension SearchViewController: UISearchResultsUpdating {
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               query.trimmingCharacters(in: .whitespaces).count >= 3,
               let resultController = searchController.searchResultsController as? SearchResultsViewController else { return }
+        
+        resultController.delegate = self
         
         ApiManager.shared.search(with: query) { result in
             DispatchQueue.main.async {

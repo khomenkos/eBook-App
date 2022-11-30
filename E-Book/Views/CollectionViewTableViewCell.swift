@@ -7,13 +7,19 @@
 
 import UIKit
 
+protocol CollectionViewTableViewCellDelegate: AnyObject {
+    func collectionViewTableViewCellDidTabCell(_ cell: CollectionViewTableViewCell, viewModel: DetailViewModel)
+}
+
 class CollectionViewTableViewCell: UITableViewCell {
     
     static let identifier = "CollectionViewTableViewCell"
     
+    weak var delegate: CollectionViewTableViewCellDelegate?
+    
     private var books: [Book] = [Book]()
     
-    private let collectionView: UICollectionView = {
+     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 140, height: 200)
         layout.scrollDirection = .horizontal
@@ -21,11 +27,11 @@ class CollectionViewTableViewCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         
-///         Register cell
-
-//        collectionView.register(BooksCollectionViewCell.self, forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
+        ///         Register cell
         
-///        Register cell using xib
+        //        collectionView.register(BooksCollectionViewCell.self, forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
+        
+        ///        Register cell using xib
         
         collectionView.register(UINib(nibName: BooksCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: BooksCollectionViewCell.identifier)
         return collectionView
@@ -64,25 +70,27 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         //guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookCollectionViewCell.identifier, for: indexPath) as? BookCollectionViewCell else { return UICollectionViewCell() }
         
         //guard let model = titles[indexPath.row].volumeInfo?.imageLinks?.thumbnail else { return UICollectionViewCell() }
-
+        
         //cell.setup(with: model)
-
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.identifier, for: indexPath) as? BooksCollectionViewCell else { return UICollectionViewCell() }
         
         cell.setup(book: books[indexPath.row])
         return cell
     }
-        
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return books.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
-//        let books = books[indexPath.row]
-//        guard let booksTitle = books.volumeInfo?.title else { return }
-//        
+
+        let bookCell = self.books[indexPath.row]
+
+        let viewModel = DetailViewModel(title: bookCell.volumeInfo?.title ?? "unknown", authors: bookCell.volumeInfo?.authors?.first ?? "unknown", description: bookCell.volumeInfo?.description ?? "unknown", imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ", averageRating: bookCell.volumeInfo?.averageRating ?? 0)
+
+        self.delegate?.collectionViewTableViewCellDidTabCell(self, viewModel: viewModel)
 
     }
 }

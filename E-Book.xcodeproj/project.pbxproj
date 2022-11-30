@@ -32,6 +32,8 @@
 		E3F7BE8329366BA100FBA557 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3F7BE8129366BA100FBA557 /* SearchTableViewCell.xib */; };
 		E3F7BE852936993500FBA557 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE842936993500FBA557 /* BookViewModel.swift */; };
 		E3F7BE882936B48B00FBA557 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE872936B48B00FBA557 /* SearchResultsViewController.swift */; };
+		E3F7BE8E2937597A00FBA557 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE8D2937597A00FBA557 /* DetailViewController.swift */; };
+		E3F7BE9029375E1600FBA557 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE8F29375E1600FBA557 /* DetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		E3F7BE8129366BA100FBA557 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		E3F7BE842936993500FBA557 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
 		E3F7BE872936B48B00FBA557 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		E3F7BE8D2937597A00FBA557 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E3F7BE8F29375E1600FBA557 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailViewModel.swift; path = ../../../../../DetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F7BE842936993500FBA557 /* BookViewModel.swift */,
+				E3F7BE8F29375E1600FBA557 /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 		E3A169F5293390C1008F59F9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E3F7BE8C2937596600FBA557 /* DetailVC */,
 				E3F7BE862936B45000FBA557 /* SearchVC */,
 				E37486ED2930F0AA00181290 /* HomeViewController.swift */,
 				E3A169F629339245008F59F9 /* MyBooksViewController.swift */,
@@ -247,6 +253,14 @@
 				E3F7BE872936B48B00FBA557 /* SearchResultsViewController.swift */,
 			);
 			path = SearchVC;
+			sourceTree = "<group>";
+		};
+		E3F7BE8C2937596600FBA557 /* DetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				E3F7BE8D2937597A00FBA557 /* DetailViewController.swift */,
+			);
+			path = DetailVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,6 +387,7 @@
 				E37486EE2930F0AA00181290 /* HomeViewController.swift in Sources */,
 				E3F7BE852936993500FBA557 /* BookViewModel.swift in Sources */,
 				E32BCD2F2934DDA200AD3533 /* BookCollectionViewCell.swift in Sources */,
+				E3F7BE8E2937597A00FBA557 /* DetailViewController.swift in Sources */,
 				E32BCD282934A21300AD3533 /* CategoryTableViewCell.swift in Sources */,
 				E3F7BE3929356ACC00FBA557 /* String+Extension.swift in Sources */,
 				E3A169F729339245008F59F9 /* MyBooksViewController.swift in Sources */,
@@ -381,6 +396,7 @@
 				E32BCD262933AB9900AD3533 /* CollectionViewTableViewCell.swift in Sources */,
 				E3F7BE8229366BA100FBA557 /* SearchTableViewCell.swift in Sources */,
 				E3F7BE772936352D00FBA557 /* UIView+Extensions.swift in Sources */,
+				E3F7BE9029375E1600FBA557 /* DetailViewModel.swift in Sources */,
 				E37486EA2930F0AA00181290 /* AppDelegate.swift in Sources */,
 				E32BCD1F2933A8A800AD3533 /* TabBarViewController.swift in Sources */,
 				E32BCD2C2934C91300AD3533 /* Book.swift in Sources */,
