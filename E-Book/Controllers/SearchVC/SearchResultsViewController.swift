@@ -66,7 +66,14 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let bookCell = self.books[indexPath.row]
-        delegate?.searchResultsViewControllerDidTapItem(DetailViewModel(title: bookCell.volumeInfo?.title ?? "unknown", authors: bookCell.volumeInfo?.authors?.first ?? "unknown", description: bookCell.volumeInfo?.description ?? "unknown", imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ", averageRating: bookCell.volumeInfo?.averageRating ?? 0))
+        delegate?.searchResultsViewControllerDidTapItem(DetailViewModel(
+            title: bookCell.volumeInfo?.title ?? "unknown",
+            authors: bookCell.volumeInfo?.authors?.first ?? "unknown",
+            description: bookCell.volumeInfo?.description ?? "unknown",
+            imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ",
+            averageRating: bookCell.volumeInfo?.averageRating ?? 0,
+            language: bookCell.volumeInfo?.language ?? "unknown",
+            pageCount: bookCell.volumeInfo?.pageCount ?? 0))
     }
 }
 

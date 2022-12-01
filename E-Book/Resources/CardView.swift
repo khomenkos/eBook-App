@@ -9,6 +9,15 @@ import UIKit
 
 class CardView: UIView {
     
+     let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 30, weight: .bold)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()

@@ -88,7 +88,13 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
 
         let bookCell = self.books[indexPath.row]
 
-        let viewModel = DetailViewModel(title: bookCell.volumeInfo?.title ?? "unknown", authors: bookCell.volumeInfo?.authors?.first ?? "unknown", description: bookCell.volumeInfo?.description ?? "unknown", imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ", averageRating: bookCell.volumeInfo?.averageRating ?? 0)
+        let viewModel = DetailViewModel(title: bookCell.volumeInfo?.title ?? "unknown",
+                                        authors: bookCell.volumeInfo?.authors?.first ?? "unknown",
+                                        description: bookCell.volumeInfo?.description ?? "unknown",
+                                        imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ",
+                                        averageRating: bookCell.volumeInfo?.averageRating ?? 0,
+                                        language: bookCell.volumeInfo?.language ?? "unknown",
+                                        pageCount: bookCell.volumeInfo?.pageCount ?? 0)
 
         self.delegate?.collectionViewTableViewCellDidTabCell(self, viewModel: viewModel)
 

@@ -95,7 +95,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                                        authors: bookCell.volumeInfo?.authors?.first ?? "unknown",
                                        description: bookCell.volumeInfo?.description ?? "unknown",
                                        imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ",
-                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0))
+                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0,
+                                       language: bookCell.volumeInfo?.language ?? "unknown",
+                                       pageCount: bookCell.volumeInfo?.pageCount ?? 0))
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
