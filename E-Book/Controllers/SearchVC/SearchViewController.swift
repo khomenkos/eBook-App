@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
     
     private let searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: SearchResultsViewController())
-        controller.searchBar.placeholder = "Search for a Book"
+        controller.searchBar.placeholder = "Title, Author"
         controller.searchBar.searchBarStyle = .minimal
         return controller
     }()
@@ -50,7 +50,7 @@ class SearchViewController: UIViewController {
     }
 
     private func fetchData() {
-        ApiManager.shared.getTrendingBooks { [weak self] result in
+        ApiManager.shared.getSearchView { [weak self] result in
             switch result {
             case .success(let books):
                 self?.books = books

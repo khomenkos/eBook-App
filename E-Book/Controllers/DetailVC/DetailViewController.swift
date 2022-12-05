@@ -166,6 +166,9 @@ class DetailViewController: UIViewController {
         button.sizeSymbol(name: imageName, size: 30, weight: .light, scale: .medium)
         button.tintColor = UIColor(named: "yellow")
         button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        button.layer.cornerRadius = 25
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor(named: "blue")?.cgColor
         return button
     }()
     
@@ -173,10 +176,14 @@ class DetailViewController: UIViewController {
         if isFavorite {
             UserDefaultsManager.shared.removeMovieFromFavorites(book)
             favButton.sizeSymbol(name: "heart", size: 30, weight: .light, scale: .medium)
+            favButton.tintColor = UIColor(named: "yellow")
+            favButton.layer.borderColor = UIColor(named: "blue")?.cgColor
             isFavorite = !isFavorite
         } else {
             UserDefaultsManager.shared.addMovieToFavorites(book)
             favButton.sizeSymbol(name: "heart.fill", size: 30, weight: .light, scale: .medium)
+            favButton.tintColor = UIColor(named: "blue")
+            favButton.layer.borderColor = UIColor(named: "yellow")?.cgColor
             isFavorite = !isFavorite
         }
     }
@@ -230,8 +237,8 @@ class DetailViewController: UIViewController {
         
         contentView.addSubview(favButton)
         NSLayoutConstraint.activate([
-            favButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 180),
-            favButton.trailingAnchor.constraint(equalTo: cellsImageView.trailingAnchor, constant: 50),
+            favButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 170),
+            favButton.trailingAnchor.constraint(equalTo: cellsImageView.trailingAnchor, constant: 70),
             favButton.widthAnchor.constraint(equalToConstant: 50),
             favButton.heightAnchor.constraint(equalToConstant: 50)
         ])

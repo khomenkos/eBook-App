@@ -9,15 +9,6 @@ import UIKit
 
 class CardView: UIView {
     
-     let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 30, weight: .bold)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        return label
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -28,14 +19,15 @@ class CardView: UIView {
         initialSetup()
     }
     
-    private func initialSetup() {
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = .zero
-        layer.cornerRadius = 10
-        layer.shadowOpacity = 0.1
-        layer.shadowRadius = 10
+    private func initialSetup(scale: Bool = true) {
         layer.borderWidth = 1
         layer.borderColor = UIColor.darkGray.cgColor
+
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.3
+        layer.shadowOffset = CGSize(width: 3, height: 3)
+        layer.shadowRadius = 3
         cornerRadius = 10
     }
 }

@@ -11,7 +11,7 @@ struct Constants {
     static let apiKey = "AIzaSyA66Q93BGaSLlDx6pVeFs-oAFElhvBWi4M"
     static let baseUrl = "https://www.googleapis.com/books/v1/volumes"
     static let categories = ["Fantasy", "History", "Horror", "Journal", "Humor", "Travel", "Drama", "Poetry"]
-    static let defaultImage = "https://www.vecteezy.com/vector-art/2219582-vector-illustration-of-book-icon"
+    static let defaultImage = "https://cdn1.iconfinder.com/data/icons/love-for-books/154/pdf-book-512.png"
 }
 
 enum ApiError {
@@ -22,7 +22,7 @@ class ApiManager {
     static let shared = ApiManager()
     
     func getRecommendedBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.baseUrl)?q=piano+intitle:keyes&key=\(Constants.apiKey)") else { return }
+        guard let url = URL(string: "\(Constants.baseUrl)?q=intitle:keyes&key=\(Constants.apiKey)") else { return }
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -38,7 +38,7 @@ class ApiManager {
     }
     
     func getTrendingBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.baseUrl)?q=trending+intitle:keyes&key=\(Constants.apiKey)") else { return }
+        guard let url = URL(string: "\(Constants.baseUrl)?q=inauthor:Whitehead&key=\(Constants.apiKey)") else { return }
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -54,7 +54,23 @@ class ApiManager {
     }
     
     func getTopBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.baseUrl)?q=fantasy+intitle:keyes&key=\(Constants.apiKey)") else { return }
+        guard let url = URL(string: "\(Constants.baseUrl)?q=inauthor:Smith&key=\(Constants.apiKey)") else { return }
+        
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
+            guard let data = data, error == nil else { return }
+            
+            do {
+                let result = try JSONDecoder().decode(RecommendedBooks.self, from: data)
+                completion(.success(result.items))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+    
+    func getSearchView(completion: @escaping (Result<[Book], Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.baseUrl)?q=inauthor:Murakami&key=\(Constants.apiKey)") else { return }
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else { return }

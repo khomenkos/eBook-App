@@ -20,7 +20,7 @@ struct VolumeInfo: Codable {
     let title: String?
     let authors: [String]?
     let description: String?
-    let pageCount: Int
+    let pageCount: Int?
     let imageLinks: ImageLinks?
     let averageRating: Float?
     let language: String?

@@ -17,7 +17,7 @@ class BooksCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var authorsLabel: UILabel!
     
     func setup(book: Book) {
-        imageView.sd_setImage(with: book.volumeInfo?.imageLinks?.thumbnail?.asUrl)
+        imageView.sd_setImage(with: book.volumeInfo?.imageLinks?.thumbnail?.asUrl ?? Constants.defaultImage.asUrl) 
         imageView.cornerRadius = 10
         titleLabel.text = book.volumeInfo?.title
         authorsLabel.text = book.volumeInfo?.authors?.first

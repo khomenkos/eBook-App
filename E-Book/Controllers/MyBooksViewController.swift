@@ -15,7 +15,7 @@ class MyBooksViewController: UIViewController {
     private let favoriteTable: UITableView = {
         let table = UITableView()
         table.backgroundColor = .clear
-        //table.separatorStyle = .none
+        table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.register(UINib(nibName: PreviewTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PreviewTableViewCell.identifier)
         return table
