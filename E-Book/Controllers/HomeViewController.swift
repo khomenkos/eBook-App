@@ -36,7 +36,7 @@ class HomeViewController: UIViewController {
         homeTable.dataSource = self
         
         // Setting navigation bar
-        title = "Books"
+        title = "Home"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
