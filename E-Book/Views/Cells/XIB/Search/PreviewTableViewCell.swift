@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+class PreviewTableViewCell: UITableViewCell {
 
-    static let identifier = "SearchTableViewCell"
+    static let identifier = "PreviewTableViewCell"
 
     @IBOutlet weak var myImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!

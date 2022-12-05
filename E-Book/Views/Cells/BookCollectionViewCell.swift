@@ -19,7 +19,7 @@ class BookCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.black.cgColor
-
+        
         return imageView
     }()
     

@@ -8,10 +8,9 @@
 import Foundation
 
 struct BookViewModel {
+    let id: String
     let title: String
     let authors: String
     let imageLinks: String
     let averageRating: Float
 }
-
-

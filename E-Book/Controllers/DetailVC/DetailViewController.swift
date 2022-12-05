@@ -9,9 +9,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    
     let scrollView = UIScrollView()
     let contentView = UIView()
+    private var isFavorite = false
+    private var book: Book!
     
     private let cellsImageView: UIImageView = {
         let imageView = UIImageView()
@@ -21,7 +22,6 @@ class DetailViewController: UIViewController {
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = UIColor.black.cgColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         return imageView
     }()
     
@@ -59,6 +59,7 @@ class DetailViewController: UIViewController {
         view.clipsToBounds = true
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.black.cgColor
+        view.backgroundColor = UIColor(named: "blue")
         return view
     }()
     
@@ -73,6 +74,7 @@ class DetailViewController: UIViewController {
         label.text = "Rating"
         return label
     }()
+    
     private let pagesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +84,7 @@ class DetailViewController: UIViewController {
         label.text = "Number of pages"
         return label
     }()
+    
     private let languageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -100,6 +103,7 @@ class DetailViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
     private let numberOfPagesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -108,6 +112,7 @@ class DetailViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
     private let languageTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -127,7 +132,6 @@ class DetailViewController: UIViewController {
         stackView.distribution = .equalSpacing
         stackView.spacing = 0
         
-
         return stackView
     }()
     
@@ -138,8 +142,6 @@ class DetailViewController: UIViewController {
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
         stackView.spacing = 0
-        
-
         return stackView
     }()
     
@@ -150,31 +152,53 @@ class DetailViewController: UIViewController {
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
         stackView.spacing = 0
-        
-
         return stackView
     }()
     
+    // Favorite button
     
-        
+    private lazy var favButton: UIButton = {
+        isFavorite = UserDefaultsManager.shared.isFavoriteMovie(book)
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.sizeSymbol(name: imageName, size: 30, weight: .light, scale: .medium)
+        button.tintColor = UIColor(named: "yellow")
+        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func buttonClicked() {
+        if isFavorite {
+            UserDefaultsManager.shared.removeMovieFromFavorites(book)
+            favButton.sizeSymbol(name: "heart", size: 30, weight: .light, scale: .medium)
+            isFavorite = !isFavorite
+        } else {
+            UserDefaultsManager.shared.addMovieToFavorites(book)
+            favButton.sizeSymbol(name: "heart.fill", size: 30, weight: .light, scale: .medium)
+            isFavorite = !isFavorite
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemBackground
         setupScrollView()
         setupViews()
     }
     
     func setup(book: DetailViewModel) {
+        self.book = book.book
         cellsImageView.sd_setImage(with: book.imageLinks.asUrl)
         titleLabel.text = book.title
         authorLabel.text = book.authors
         ratingNumberLabel.text = "\(book.averageRating)/5"
         numberOfPagesLabel.text = "\(book.pageCount) pages"
-        languageTitleLabel.text = book.language
+        languageTitleLabel.text = book.language.uppercased()
         descriptionLabel.text = book.description
     }
-        
+    
     // Settings and Constraints
     func setupScrollView(){
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -198,10 +222,18 @@ class DetailViewController: UIViewController {
         
         contentView.addSubview(cellsImageView)
         NSLayoutConstraint.activate([
-            cellsImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -50),
+            cellsImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             cellsImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             cellsImageView.widthAnchor.constraint(equalToConstant: 155),
             cellsImageView.heightAnchor.constraint(equalToConstant: 220)
+        ])
+        
+        contentView.addSubview(favButton)
+        NSLayoutConstraint.activate([
+            favButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 180),
+            favButton.trailingAnchor.constraint(equalTo: cellsImageView.trailingAnchor, constant: 50),
+            favButton.widthAnchor.constraint(equalToConstant: 50),
+            favButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         contentView.addSubview(titleLabel)
@@ -217,7 +249,7 @@ class DetailViewController: UIViewController {
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-
+        
         contentView.addSubview(infoView)
         NSLayoutConstraint.activate([
             infoView.widthAnchor.constraint(equalToConstant: 340),
@@ -241,7 +273,7 @@ class DetailViewController: UIViewController {
             stackPagesView.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
             stackPagesView.centerYAnchor.constraint(equalTo: infoView.centerYAnchor)
         ])
-
+        
         infoView.addSubview(stackLangView)
         stackLangView.addArrangedSubview(languageLabel)
         stackLangView.addArrangedSubview(languageTitleLabel)
@@ -249,7 +281,7 @@ class DetailViewController: UIViewController {
             stackLangView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20),
             stackLangView.centerYAnchor.constraint(equalTo: infoView.centerYAnchor)
         ])
-
+        
         contentView.addSubview(descriptionLabel)
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 10),

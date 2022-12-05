@@ -14,9 +14,9 @@ class SearchViewController: UIViewController {
     private let searchTable: UITableView = {
         let table = UITableView()
         table.backgroundColor = .clear
-        //table.separatorStyle = .none
+        table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
-        table.register(UINib(nibName: SearchTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: SearchTableViewCell.identifier)
+        table.register(UINib(nibName: PreviewTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PreviewTableViewCell.identifier)
         return table
     }()
     
@@ -48,7 +48,7 @@ class SearchViewController: UIViewController {
         super.viewDidLayoutSubviews()
         searchTable.frame = view.bounds
     }
-    
+
     private func fetchData() {
         ApiManager.shared.getTrendingBooks { [weak self] result in
             switch result {
@@ -71,14 +71,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as? SearchTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PreviewTableViewCell.identifier, for: indexPath) as? PreviewTableViewCell else { return UITableViewCell() }
         cell.selectionStyle = .none
         let bookCell = books[indexPath.row]
-        cell.setup(book: BookViewModel(title: bookCell.volumeInfo?.title ?? "unknown",
-                                       authors: bookCell.volumeInfo?.authors?.first ?? "unknown",
-                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ",
+        cell.setup(book: BookViewModel(id: bookCell.id, title: bookCell.volumeInfo?.title ?? "Title unknown",
+                                       authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
+                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
                                        averageRating: bookCell.volumeInfo?.averageRating ?? 0))
-        
         return cell
     }
     
@@ -90,15 +89,20 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let bookCell = self.books[indexPath.row]
+        let view = DetailViewModel(
+            id: bookCell.id,
+            title: bookCell.volumeInfo?.title ?? "Title unknown",
+            authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
+            description: bookCell.volumeInfo?.description ?? "",
+            imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
+            averageRating: bookCell.volumeInfo?.averageRating ?? 0,
+            language: bookCell.volumeInfo?.language ?? "ENG",
+            pageCount: bookCell.volumeInfo?.pageCount ?? 0,
+            book: bookCell)
         let vc = DetailViewController()
-        vc.setup(book: DetailViewModel(title: bookCell.volumeInfo?.title ?? "unknown",
-                                       authors: bookCell.volumeInfo?.authors?.first ?? "unknown",
-                                       description: bookCell.volumeInfo?.description ?? "unknown",
-                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? " ",
-                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0,
-                                       language: bookCell.volumeInfo?.language ?? "unknown",
-                                       pageCount: bookCell.volumeInfo?.pageCount ?? 0))
+        vc.setup(book: view)
         self.navigationController?.pushViewController(vc, animated: true)
+    
     }
 }
 

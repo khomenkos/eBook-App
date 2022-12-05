@@ -8,24 +8,23 @@
 import UIKit
 
 enum Sections: Int {
-    case category = 0
-    case recommended = 1
-    case trendingBooks = 2
-    case topBooks = 3
+    case recommended = 0
+    case trendingBooks = 1
+    case topBooks = 2
 }
 
 class HomeViewController: UIViewController {
     
-    let sectionTitles: [String] = ["Category", "Recommended", "Trending Books", "Top Books"]
+    let sectionTitles: [String] = ["Recommended", "Trending Books", "Top Books"]
+    
+    var books:[Book] = [Book]()
     
     private let homeTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.backgroundColor = .clear
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
-        
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
-        table.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.identifier)
         return table
     }()
     
@@ -58,14 +57,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier) as? CollectionViewTableViewCell,
-              let cellCategory = tableView.dequeueReusableCell(withIdentifier: CategoryTableViewCell.identifier) as? CategoryTableViewCell else { return UITableViewCell() }
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier) as? CollectionViewTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         
         switch indexPath.section {
-        case Sections.category.rawValue:
-            return cellCategory
         case Sections.recommended.rawValue:
             ApiManager.shared.getRecommendedBooks { results in
                 switch results {
@@ -116,9 +111,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 40
-        }
         return 200
     }
     
@@ -128,12 +120,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController: CollectionViewTableViewCellDelegate {
+    
     func collectionViewTableViewCellDidTabCell(_ cell: CollectionViewTableViewCell, viewModel: DetailViewModel) {
         DispatchQueue.main.async { [weak self] in
             let vc = DetailViewController()
             vc.setup(book: viewModel)
             self?.navigationController?.pushViewController(vc, animated: true)
-            
         }
     }
 }
