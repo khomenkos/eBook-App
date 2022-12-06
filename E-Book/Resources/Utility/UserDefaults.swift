@@ -11,13 +11,12 @@ final class UserDefaultsManager {
     
     static let shared = UserDefaultsManager()
     let defaults = UserDefaults.standard
-    private init() {}
     
     private enum DefaultKeys: String {
         case favorite
     }
     
-    private var favorites: [Book]? {
+    var favorites: [Book]? {
         get {
             if let data = defaults.object(forKey: DefaultKeys.favorite.rawValue) as? Data,
                let books = try? PropertyListDecoder().decode(Array<Book>.self, from: data) {

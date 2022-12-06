@@ -234,7 +234,7 @@ class DetailViewController: UIViewController {
             cellsImageView.widthAnchor.constraint(equalToConstant: 155),
             cellsImageView.heightAnchor.constraint(equalToConstant: 220)
         ])
-        
+
         contentView.addSubview(favButton)
         NSLayoutConstraint.activate([
             favButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 170),
@@ -242,21 +242,21 @@ class DetailViewController: UIViewController {
             favButton.widthAnchor.constraint(equalToConstant: 50),
             favButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-        
+
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: cellsImageView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-        
+
         contentView.addSubview(authorLabel)
         NSLayoutConstraint.activate([
             authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-        
+
         contentView.addSubview(infoView)
         NSLayoutConstraint.activate([
             infoView.widthAnchor.constraint(equalToConstant: 340),
@@ -264,7 +264,7 @@ class DetailViewController: UIViewController {
             infoView.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 10),
             infoView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
-        
+
         infoView.addSubview(stackRatingView)
         stackRatingView.addArrangedSubview(ratingLabel)
         stackRatingView.addArrangedSubview(ratingNumberLabel)
@@ -272,7 +272,7 @@ class DetailViewController: UIViewController {
             stackRatingView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 20),
             stackRatingView.centerYAnchor.constraint(equalTo: infoView.centerYAnchor)
         ])
-        
+
         infoView.addSubview(stackPagesView)
         stackPagesView.addArrangedSubview(pagesLabel)
         stackPagesView.addArrangedSubview(numberOfPagesLabel)
@@ -280,15 +280,16 @@ class DetailViewController: UIViewController {
             stackPagesView.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
             stackPagesView.centerYAnchor.constraint(equalTo: infoView.centerYAnchor)
         ])
-        
+
         infoView.addSubview(stackLangView)
         stackLangView.addArrangedSubview(languageLabel)
         stackLangView.addArrangedSubview(languageTitleLabel)
+
         NSLayoutConstraint.activate([
             stackLangView.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -20),
             stackLangView.centerYAnchor.constraint(equalTo: infoView.centerYAnchor)
         ])
-        
+
         contentView.addSubview(descriptionLabel)
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 10),
@@ -296,5 +297,6 @@ class DetailViewController: UIViewController {
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+        
     }
 }

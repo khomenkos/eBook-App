@@ -21,6 +21,37 @@ class MyBooksViewController: UIViewController {
         return table
     }()
     
+    // No Favorite Books Image
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 0
+        return stackView
+    }()
+    
+    private let starImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(systemName: "star.fill")
+        imageView.tintColor = UIColor(named: "yellow")
+        return imageView
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Gill Sans SemiBold", size: 20)
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.text = "Favorite books will appear here!"
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -29,8 +60,7 @@ class MyBooksViewController: UIViewController {
         favoriteTable.delegate = self
         favoriteTable.dataSource = self
         title = "My Books"
-        
-
+        setupViews()
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,11 +71,29 @@ class MyBooksViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 
         //fetchData()
+        showNoFavorites()
         self.books = UserDefaultsManager.shared.fetchFavoriteMovies()
         favoriteTable.reloadData()
 
     }
-
+    
+    func setupViews(){
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(starImage)
+        stackView.addArrangedSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            starImage.widthAnchor.constraint(equalToConstant: 25),
+            starImage.heightAnchor.constraint(equalToConstant: 25)
+        ])
+    }
+    
+    private func showNoFavorites() {
+        stackView.isHidden = UserDefaultsManager().favorites?.count ?? 0 > 0
+    }
 }
 
 extension MyBooksViewController: UITableViewDelegate, UITableViewDataSource {
