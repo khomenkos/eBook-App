@@ -14,7 +14,7 @@ A simple Book Search App using the public API.
  - Home screen - shows a list of recommended books.
  - Detail screen - shows information about the selected book.
  - Search screen - search for books by title or author.
- - My Books screen - shows a list of movies that the user marked as favorites. 
+ - My Books screen - shows a list of books that the user marked as favorites. 
 
 ## Features
 - UI Framework: UIKit
