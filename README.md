@@ -8,7 +8,7 @@ ___
 ## About
 A simple Book Search App using the public API.
 
-<img src="./Screenshots/Screenshot.png" width="260"
+<img src="./Screenshots/ScreenShot.png" width="260"
 
  - Home screen - shows a list of recommended books.
  - Detail screen - shows information about the selected book.
