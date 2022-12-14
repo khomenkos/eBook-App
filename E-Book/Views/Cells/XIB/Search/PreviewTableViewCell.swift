@@ -17,11 +17,10 @@ class PreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingLabel: UILabel!
     
     
-    func setup(book: BookViewModel) {
-        myImage.sd_setImage(with: book.imageLinks.asUrl)
-        titleLabel.text = book.title
-        authorsLabel.text = book.authors
-        ratingLabel.text = "\(book.averageRating)/5"
+    func setup(book: Book) {
+        myImage.sd_setImage(with: book.volumeInfo?.imageLinks?.thumbnail?.asUrl)
+        titleLabel.text = book.volumeInfo?.title
+        authorsLabel.text = book.volumeInfo?.authors?.first
+        ratingLabel.text = "\(book.volumeInfo?.averageRating ?? 0)/5"
     }
-    
 }

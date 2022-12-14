@@ -22,5 +22,4 @@ class BooksCollectionViewCell: UICollectionViewCell {
         titleLabel.text = book.volumeInfo?.title
         authorsLabel.text = book.volumeInfo?.authors?.first
     }
-
 }

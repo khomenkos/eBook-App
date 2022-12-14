@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(homeTable)
-        
+        view.backgroundColor = .systemBackground
         homeTable.delegate = self
         homeTable.dataSource = self
         
@@ -121,10 +121,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeViewController: CollectionViewTableViewCellDelegate {
     
-    func collectionViewTableViewCellDidTabCell(_ cell: CollectionViewTableViewCell, viewModel: DetailViewModel) {
+    func collectionViewTableViewCellDidTabCell(_ cell: CollectionViewTableViewCell, viewModel: Book) {
         DispatchQueue.main.async { [weak self] in
             let vc = DetailViewController()
-            vc.setup(book: viewModel)
+            vc.book = viewModel
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }

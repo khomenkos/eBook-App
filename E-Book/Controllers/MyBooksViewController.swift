@@ -69,12 +69,9 @@ class MyBooksViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
-        //fetchData()
         showNoFavorites()
         self.books = UserDefaultsManager.shared.fetchFavoriteMovies()
         favoriteTable.reloadData()
-
     }
     
     func setupViews(){
@@ -104,11 +101,7 @@ extension MyBooksViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PreviewTableViewCell.identifier, for: indexPath) as? PreviewTableViewCell else { return UITableViewCell() }
         cell.selectionStyle = .none
-        let bookCell = books[indexPath.row]
-        cell.setup(book: BookViewModel(id: bookCell.id, title: bookCell.volumeInfo?.title ?? "Title unknown",
-                                       authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
-                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
-                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0))
+        cell.setup(book: books[indexPath.row])
         return cell
     }
     
@@ -118,19 +111,9 @@ extension MyBooksViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let bookCell = self.books[indexPath.row]
         
         let vc = DetailViewController()
-        vc.setup(book: DetailViewModel(
-            id: bookCell.id,
-            title: bookCell.volumeInfo?.title ?? "Title unknown",
-            authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
-            description: bookCell.volumeInfo?.description ?? "",
-            imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
-            averageRating: bookCell.volumeInfo?.averageRating ?? 0,
-            language: bookCell.volumeInfo?.language ?? "ENG",
-            pageCount: bookCell.volumeInfo?.pageCount ?? 0,
-            book: bookCell))
+        vc.book = books[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

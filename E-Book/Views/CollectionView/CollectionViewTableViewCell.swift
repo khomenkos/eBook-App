@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CollectionViewTableViewCellDelegate: AnyObject {
-    func collectionViewTableViewCellDidTabCell(_ cell: CollectionViewTableViewCell, viewModel: DetailViewModel)
+    func collectionViewTableViewCellDidTabCell(_ cell: CollectionViewTableViewCell, viewModel: Book)
 }
 
 class CollectionViewTableViewCell: UITableViewCell {
@@ -75,16 +75,6 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let bookCell = self.books[indexPath.row]
-        let viewModel = DetailViewModel(id: bookCell.id,
-                                        title: bookCell.volumeInfo?.title ?? "Title unknown",
-                                        authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
-                                        description: bookCell.volumeInfo?.description ?? "",
-                                        imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
-                                        averageRating: bookCell.volumeInfo?.averageRating ?? 0,
-                                        language: bookCell.volumeInfo?.language ?? "ENG",
-                                        pageCount: bookCell.volumeInfo?.pageCount ?? 0,
-                                        book: bookCell)
-        self.delegate?.collectionViewTableViewCellDidTabCell(self, viewModel: viewModel)
+        self.delegate?.collectionViewTableViewCellDidTabCell(self, viewModel: books[indexPath.row])
     }
 }

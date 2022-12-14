@@ -21,8 +21,11 @@
 		E37486F62930F0AB00181290 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37486F42930F0AB00181290 /* LaunchScreen.storyboard */; };
 		E3A169F729339245008F59F9 /* MyBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A169F629339245008F59F9 /* MyBooksViewController.swift */; };
 		E3A169F92933925F008F59F9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A169F82933925F008F59F9 /* SearchViewController.swift */; };
-		E3D16D80293E27F9009019FE /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D16D7F293E27F9009019FE /* DetailViewModel.swift */; };
 		E3D16D82293E3C0C009019FE /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D16D81293E3C0C009019FE /* UIButton+Extension.swift */; };
+		E3D16D85293F7852009019FE /* PdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D16D84293F7852009019FE /* PdfViewController.swift */; };
+		E3D16D87293F7CFF009019FE /* OutlineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D16D86293F7CFE009019FE /* OutlineTableViewController.swift */; };
+		E3D16D8C29428D7C009019FE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D16D8B29428D7B009019FE /* WebViewController.swift */; };
+		E3D5F7722949D9B9001287E7 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3D5F7712949D9B9001287E7 /* Colors.xcassets */; };
 		E3F7BE3929356ACC00FBA557 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE3829356ACC00FBA557 /* String+Extension.swift */; };
 		E3F7BE722936265B00FBA557 /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE702936265B00FBA557 /* BooksCollectionViewCell.swift */; };
 		E3F7BE732936265B00FBA557 /* BooksCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3F7BE712936265B00FBA557 /* BooksCollectionViewCell.xib */; };
@@ -30,7 +33,6 @@
 		E3F7BE772936352D00FBA557 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE762936352D00FBA557 /* UIView+Extensions.swift */; };
 		E3F7BE8229366BA100FBA557 /* PreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE8029366BA100FBA557 /* PreviewTableViewCell.swift */; };
 		E3F7BE8329366BA100FBA557 /* PreviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3F7BE8129366BA100FBA557 /* PreviewTableViewCell.xib */; };
-		E3F7BE852936993500FBA557 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE842936993500FBA557 /* BookViewModel.swift */; };
 		E3F7BE882936B48B00FBA557 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE872936B48B00FBA557 /* SearchResultsViewController.swift */; };
 		E3F7BE8E2937597A00FBA557 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F7BE8D2937597A00FBA557 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -54,8 +56,12 @@
 		E37486F72930F0AB00181290 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E3A169F629339245008F59F9 /* MyBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBooksViewController.swift; sourceTree = "<group>"; };
 		E3A169F82933925F008F59F9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		E3D16D7F293E27F9009019FE /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		E3D16D81293E3C0C009019FE /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		E3D16D84293F7852009019FE /* PdfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfViewController.swift; sourceTree = "<group>"; };
+		E3D16D86293F7CFE009019FE /* OutlineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineTableViewController.swift; sourceTree = "<group>"; };
+		E3D16D8B29428D7B009019FE /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		E3D5F76F2949D8A4001287E7 /* swift.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = swift.pdf; sourceTree = "<group>"; };
+		E3D5F7712949D9B9001287E7 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		E3F7BE3829356ACC00FBA557 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		E3F7BE702936265B00FBA557 /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
 		E3F7BE712936265B00FBA557 /* BooksCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BooksCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -63,7 +69,6 @@
 		E3F7BE762936352D00FBA557 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		E3F7BE8029366BA100FBA557 /* PreviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewTableViewCell.swift; sourceTree = "<group>"; };
 		E3F7BE8129366BA100FBA557 /* PreviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviewTableViewCell.xib; sourceTree = "<group>"; };
-		E3F7BE842936993500FBA557 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
 		E3F7BE872936B48B00FBA557 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		E3F7BE8D2937597A00FBA557 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,25 +113,18 @@
 		E32BCD212933AB1400AD3533 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E3F7BE742936350900FBA557 /* CardView.swift */,
+				E3D5F76E2949D878001287E7 /* CollectionView */,
 				E32BCD2D2934DD6A00AD3533 /* Cells */,
-				E32BCD252933AB9900AD3533 /* CollectionViewTableViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		E32BCD222933AB2A00AD3533 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				E3F7BE842936993500FBA557 /* BookViewModel.swift */,
-				E3D16D7F293E27F9009019FE /* DetailViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		E32BCD232933AB5200AD3533 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				E32BCD292934BC0900AD3533 /* ApiManager.swift */,
+				E33630852938DAAA00DD57BF /* UserDefaults.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -134,9 +132,7 @@
 		E32BCD242933AB6000AD3533 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E33630842938DA7100DD57BF /* Utility */,
 				E3F7BE782936477000FBA557 /* Extensions */,
-				E3F7BE742936350900FBA557 /* CardView.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -157,14 +153,6 @@
 				E3F7BE79293648CD00FBA557 /* Books */,
 			);
 			path = XIB;
-			sourceTree = "<group>";
-		};
-		E33630842938DA7100DD57BF /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				E33630852938DAAA00DD57BF /* UserDefaults.swift */,
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		E37486DD2930F0AA00181290 = {
@@ -191,14 +179,14 @@
 				E32BCD242933AB6000AD3533 /* Resources */,
 				E32BCD232933AB5200AD3533 /* Managers */,
 				E32BCD202933AB0D00AD3533 /* Models */,
-				E32BCD222933AB2A00AD3533 /* ViewModels */,
 				E32BCD212933AB1400AD3533 /* Views */,
 				E3A169F5293390C1008F59F9 /* Controllers */,
-				E37486E92930F0AA00181290 /* AppDelegate.swift */,
-				E37486EB2930F0AA00181290 /* SceneDelegate.swift */,
+				E3D5F7702949D8AE001287E7 /* AppDelegate */,
 				E37486F22930F0AB00181290 /* Assets.xcassets */,
+				E3D5F76F2949D8A4001287E7 /* swift.pdf */,
 				E37486F42930F0AB00181290 /* LaunchScreen.storyboard */,
 				E37486F72930F0AB00181290 /* Info.plist */,
+				E3D5F7712949D9B9001287E7 /* Colors.xcassets */,
 			);
 			path = "E-Book";
 			sourceTree = "<group>";
@@ -206,6 +194,8 @@
 		E3A169F5293390C1008F59F9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E3D16D8A29428D50009019FE /* WebVC */,
+				E3D16D83293F7833009019FE /* PdfVC */,
 				E3F7BE8C2937596600FBA557 /* DetailVC */,
 				E3F7BE862936B45000FBA557 /* SearchVC */,
 				E37486ED2930F0AA00181290 /* HomeViewController.swift */,
@@ -213,6 +203,40 @@
 				E32BCD1E2933A8A800AD3533 /* TabBarViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E3D16D83293F7833009019FE /* PdfVC */ = {
+			isa = PBXGroup;
+			children = (
+				E3D16D84293F7852009019FE /* PdfViewController.swift */,
+				E3D16D86293F7CFE009019FE /* OutlineTableViewController.swift */,
+			);
+			path = PdfVC;
+			sourceTree = "<group>";
+		};
+		E3D16D8A29428D50009019FE /* WebVC */ = {
+			isa = PBXGroup;
+			children = (
+				E3D16D8B29428D7B009019FE /* WebViewController.swift */,
+			);
+			path = WebVC;
+			sourceTree = "<group>";
+		};
+		E3D5F76E2949D878001287E7 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				E32BCD252933AB9900AD3533 /* CollectionViewTableViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		E3D5F7702949D8AE001287E7 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				E37486E92930F0AA00181290 /* AppDelegate.swift */,
+				E37486EB2930F0AA00181290 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		E3F7BE782936477000FBA557 /* Extensions */ = {
@@ -320,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3D5F7722949D9B9001287E7 /* Colors.xcassets in Resources */,
 				E37486F62930F0AB00181290 /* LaunchScreen.storyboard in Resources */,
 				E3F7BE732936265B00FBA557 /* BooksCollectionViewCell.xib in Resources */,
 				E37486F32930F0AB00181290 /* Assets.xcassets in Resources */,
@@ -377,11 +402,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3F7BE752936350900FBA557 /* CardView.swift in Sources */,
+				E3D16D87293F7CFF009019FE /* OutlineTableViewController.swift in Sources */,
 				E3A169F92933925F008F59F9 /* SearchViewController.swift in Sources */,
 				E32BCD2A2934BC0900AD3533 /* ApiManager.swift in Sources */,
 				E37486EE2930F0AA00181290 /* HomeViewController.swift in Sources */,
-				E3F7BE852936993500FBA557 /* BookViewModel.swift in Sources */,
 				E32BCD2F2934DDA200AD3533 /* BookCollectionViewCell.swift in Sources */,
+				E3D16D8C29428D7C009019FE /* WebViewController.swift in Sources */,
 				E3F7BE8E2937597A00FBA557 /* DetailViewController.swift in Sources */,
 				E3F7BE3929356ACC00FBA557 /* String+Extension.swift in Sources */,
 				E3A169F729339245008F59F9 /* MyBooksViewController.swift in Sources */,
@@ -391,12 +417,12 @@
 				E33630862938DAAA00DD57BF /* UserDefaults.swift in Sources */,
 				E3F7BE8229366BA100FBA557 /* PreviewTableViewCell.swift in Sources */,
 				E3F7BE772936352D00FBA557 /* UIView+Extensions.swift in Sources */,
-				E3D16D80293E27F9009019FE /* DetailViewModel.swift in Sources */,
 				E37486EA2930F0AA00181290 /* AppDelegate.swift in Sources */,
 				E32BCD1F2933A8A800AD3533 /* TabBarViewController.swift in Sources */,
 				E32BCD2C2934C91300AD3533 /* Book.swift in Sources */,
 				E37486EC2930F0AA00181290 /* SceneDelegate.swift in Sources */,
 				E3D16D82293E3C0C009019FE /* UIButton+Extension.swift in Sources */,
+				E3D16D85293F7852009019FE /* PdfViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

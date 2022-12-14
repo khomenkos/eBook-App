@@ -8,7 +8,7 @@
 import Foundation
 
 struct Constants {
-    static let apiKey = "AIzaSyA66Q93BGaSLlDx6pVeFs-oAFElhvBWi4M"
+    static let apiKey = "AIzaSyD_I9-SnC4cFhEz_8GeJ7-d4tQ-lUTnEKs"
     static let baseUrl = "https://www.googleapis.com/books/v1/volumes"
     static let categories = ["Fantasy", "History", "Horror", "Journal", "Humor", "Travel", "Drama", "Poetry"]
     static let defaultImage = "https://cdn1.iconfinder.com/data/icons/love-for-books/154/pdf-book-512.png"
@@ -23,7 +23,6 @@ class ApiManager {
     
     func getRecommendedBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
         guard let url = URL(string: "\(Constants.baseUrl)?q=intitle:keyes&key=\(Constants.apiKey)") else { return }
-        
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else { return }
             
@@ -39,7 +38,6 @@ class ApiManager {
     
     func getTrendingBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
         guard let url = URL(string: "\(Constants.baseUrl)?q=inauthor:Whitehead&key=\(Constants.apiKey)") else { return }
-        
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else { return }
             
@@ -87,7 +85,7 @@ class ApiManager {
     
     func search(with query: String, completion: @escaping (Result<[Book], Error>) -> Void) {
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        guard let url = URL(string: "\(Constants.baseUrl)?q=\(query)&key=\(Constants.apiKey)") else { return }
+        guard let url = URL(string: "\(Constants.baseUrl)?q=\(query)&filter=free-ebooks&key=\(Constants.apiKey)") else { return }
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             guard let data = data, error == nil else { return }
             do {

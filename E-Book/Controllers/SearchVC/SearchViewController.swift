@@ -29,7 +29,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .systemBackground
         view.addSubview(searchTable)
         
         searchTable.delegate = self
@@ -73,11 +73,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PreviewTableViewCell.identifier, for: indexPath) as? PreviewTableViewCell else { return UITableViewCell() }
         cell.selectionStyle = .none
-        let bookCell = books[indexPath.row]
-        cell.setup(book: BookViewModel(id: bookCell.id, title: bookCell.volumeInfo?.title ?? "Title unknown",
-                                       authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
-                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
-                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0))
+        cell.setup(book: books[indexPath.row])
         return cell
     }
     
@@ -87,30 +83,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let bookCell = self.books[indexPath.row]
-        let view = DetailViewModel(
-            id: bookCell.id,
-            title: bookCell.volumeInfo?.title ?? "Title unknown",
-            authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
-            description: bookCell.volumeInfo?.description ?? "",
-            imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
-            averageRating: bookCell.volumeInfo?.averageRating ?? 0,
-            language: bookCell.volumeInfo?.language ?? "ENG",
-            pageCount: bookCell.volumeInfo?.pageCount ?? 0,
-            book: bookCell)
+
         let vc = DetailViewController()
-        vc.setup(book: view)
+        vc.book = books[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
-    
     }
 }
 
 extension SearchViewController: UISearchResultsUpdating, SearchResultsViewControllerDelegate {
-    func searchResultsViewControllerDidTapItem(_ viewModel: DetailViewModel) {
+    func searchResultsViewControllerDidTapItem(_ viewModel: Book) {
         DispatchQueue.main.async { [weak self] in
             let vc = DetailViewController()
-            vc.setup(book: viewModel)
+            vc.book = viewModel
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }

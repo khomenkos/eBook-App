@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchResultsViewControllerDelegate: AnyObject {
-    func searchResultsViewControllerDidTapItem(_ viewModel: DetailViewModel)
+    func searchResultsViewControllerDidTapItem(_ viewModel: Book)
 }
 
 class SearchResultsViewController: UIViewController {
@@ -20,7 +20,7 @@ class SearchResultsViewController: UIViewController {
     public let searchResultsViewController: UITableView = {
         let table = UITableView()
         table.backgroundColor = .clear
-        //table.separatorStyle = .none
+        table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         table.register(UINib(nibName: PreviewTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: PreviewTableViewCell.identifier)
         
@@ -31,7 +31,7 @@ class SearchResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(searchResultsViewController)
         
         searchResultsViewController.delegate = self
@@ -54,11 +54,8 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PreviewTableViewCell.identifier, for: indexPath) as? PreviewTableViewCell else { return UITableViewCell() }
         //cell.selectionStyle = .none
-        let bookCell = books[indexPath.row]
-        cell.setup(book: BookViewModel(id: bookCell.id, title: bookCell.volumeInfo?.title ?? "Title unknown",
-                                       authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
-                                       imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
-                                       averageRating: bookCell.volumeInfo?.averageRating ?? 0))
+        
+        cell.setup(book: books[indexPath.row])
         return cell
     }
     
@@ -68,17 +65,7 @@ extension SearchResultsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let bookCell = self.books[indexPath.row]
-        delegate?.searchResultsViewControllerDidTapItem(DetailViewModel(
-            id: bookCell.id,
-            title: bookCell.volumeInfo?.title ?? "Title unknown",
-            authors: bookCell.volumeInfo?.authors?.first ?? "Author unknown",
-            description: bookCell.volumeInfo?.description ?? "",
-            imageLinks: bookCell.volumeInfo?.imageLinks?.thumbnail ?? Constants.defaultImage,
-            averageRating: bookCell.volumeInfo?.averageRating ?? 0,
-            language: bookCell.volumeInfo?.language ?? "ENG",
-            pageCount: bookCell.volumeInfo?.pageCount ?? 0,
-            book: bookCell))
+        delegate?.searchResultsViewControllerDidTapItem(books[indexPath.row])
     }
 }
 
