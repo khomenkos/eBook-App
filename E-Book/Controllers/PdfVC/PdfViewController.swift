@@ -77,12 +77,8 @@ class PdfViewController: UIViewController {
     
     private func setupDismissButton() {
         dismissButton = UIButton(frame: CGRect(x: 30, y: 25, width: 40, height: 40))
-        dismissButton.layer.cornerRadius = dismissButton.frame.width/2
-        dismissButton.setTitle("X", for: .normal)
-        dismissButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 30)
-        dismissButton.setTitleColor(.white, for: .normal)
-        dismissButton.backgroundColor = .black
-        dismissButton.alpha = 0.8
+        dismissButton.sizeSymbol(name: "chevron.down.circle", size: 30, weight: .light, scale: .medium)
+        dismissButton.tintColor = .black
         view.addSubview(dismissButton)
         dismissButton.addTarget(self, action: #selector(back), for: .touchUpInside)
     }
@@ -102,12 +98,8 @@ class PdfViewController: UIViewController {
     
     private func setupOutlineButton() {
         outlineButton = UIButton(frame: CGRect(x: view.frame.maxX - 75, y: 25, width: 40, height: 40))
-        outlineButton.layer.cornerRadius = outlineButton.frame.width/2
-        outlineButton.setTitle("三", for: .normal)
-        outlineButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 30)
-        outlineButton.setTitleColor(.white, for: .normal)
-        outlineButton.backgroundColor = .black
-        outlineButton.alpha = 0.8
+        outlineButton.sizeSymbol(name: "text.line.last.and.arrowtriangle.forward", size: 30, weight: .light, scale: .medium)
+        outlineButton.tintColor = .black
         view.addSubview(outlineButton)
         outlineButton.addTarget(self, action: #selector(toggleOutline(sender:)), for: .touchUpInside)
     }

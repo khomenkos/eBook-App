@@ -8,8 +8,7 @@ ___
 ## About
 A simple Book Search App using the public API.
 
-<img src="./Screenshots/ScreenShot1.png" width="260" /><img src="./Screenshots/ScreenShot2.png" width="260" />
-<img src="./Screenshots/ScreenShot3.png" width="260" />
+<img src="./Screenshots/Screenshot.png" width="260"
 
  - Home screen - shows a list of recommended books.
  - Detail screen - shows information about the selected book.
@@ -18,8 +17,10 @@ A simple Book Search App using the public API.
 
 ## Features
 - UI Framework: UIKit
-- Architecture pattern: MVVM
+- Architecture pattern: MVC
 - Favorite list using User Defaults
+- PdfKit for reading books by link.
+- WebKit to buy a book or view additional information.
 
 ## Third Party Libraries
 

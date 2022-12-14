@@ -274,7 +274,7 @@ class DetailViewController: UIViewController {
 
     @objc func openPdfBook() {
         //guard let url = "".asUrl else { return }
-        guard let url = Bundle.main.url(forResource: "swift", withExtension: "pdf") else { return }
+        guard let url = Bundle.main.url(forResource: "swiftBook", withExtension: "pdf") else { return }
         let pdfViewController = PdfViewController(pdfUrl: url)
         present(pdfViewController, animated: true, completion: nil)
     }
@@ -436,6 +436,8 @@ class DetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             readWEBButton.widthAnchor.constraint(equalToConstant: 140),
             readWEBButton.heightAnchor.constraint(equalToConstant: 45),
+            readPDFButton.widthAnchor.constraint(equalToConstant: 140),
+            readPDFButton.heightAnchor.constraint(equalToConstant: 45),
             buyButton.widthAnchor.constraint(equalToConstant: 140),
             buyButton.heightAnchor.constraint(equalToConstant: 45),
             stackButtons.topAnchor.constraint(equalTo: infoView.bottomAnchor, constant: 10),
