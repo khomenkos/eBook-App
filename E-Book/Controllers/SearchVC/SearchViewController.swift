@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class SearchViewController: UIViewController {
     
@@ -27,14 +28,16 @@ class SearchViewController: UIViewController {
         return controller
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         view.addSubview(searchTable)
-        
         searchTable.delegate = self
         searchTable.dataSource = self
+        searchTable.keyboardDismissMode = .onDrag
         searchController.searchResultsUpdater = self
+
         fetchData()
         
         // Setting navigation bar
@@ -49,16 +52,19 @@ class SearchViewController: UIViewController {
         searchTable.frame = view.bounds
     }
 
+    
     private func fetchData() {
+        ProgressHUD.show()
         ApiManager.shared.getSearchView { [weak self] result in
             switch result {
             case .success(let books):
+                ProgressHUD.dismiss()
                 self?.books = books
                 DispatchQueue.main.async { [weak self] in
                     self?.searchTable.reloadData()
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                ProgressHUD.showError(error.localizedDescription)
             }
         }
     }
@@ -101,22 +107,25 @@ extension SearchViewController: UISearchResultsUpdating, SearchResultsViewContro
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
-        
         guard let query = searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
-              query.trimmingCharacters(in: .whitespaces).count >= 3,
+//              query.trimmingCharacters(in: .whitespaces).count >= 3,
+              
               let resultController = searchController.searchResultsController as? SearchResultsViewController else { return }
-        
+        ProgressHUD.show()
         resultController.delegate = self
         
+
         ApiManager.shared.search(with: query) { result in
+
             DispatchQueue.main.async {
                 switch result {
                 case .success(let books):
+                    ProgressHUD.dismiss()
                     resultController.books = books
-                    resultController.searchResultsViewController.reloadData()
+                    resultController.searchResultsTable.reloadData()
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
                 }
             }
         }

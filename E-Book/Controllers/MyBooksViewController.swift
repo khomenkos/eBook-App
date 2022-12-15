@@ -10,7 +10,6 @@ import UIKit
 class MyBooksViewController: UIViewController {
     
     private var books: [Book] = [Book]()
-    var booksaaa:[Book] = [Book]()
     
     private let favoriteTable: UITableView = {
         let table = UITableView()

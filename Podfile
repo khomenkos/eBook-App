@@ -7,5 +7,8 @@ target 'E-Book' do
 
   # Pods for E-Book
 pod 'SDWebImage', '~> 5.0'
+pod 'ProgressHUD'
+pod "IQKeyboardManagerSwift"
+
 
 end

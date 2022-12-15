@@ -16,18 +16,19 @@ final class UserDefaultsManager {
         case favorite
     }
     
-    var favorites: [Book]? {
-        get {
-            if let data = defaults.object(forKey: DefaultKeys.favorite.rawValue) as? Data,
-               let books = try? PropertyListDecoder().decode(Array<Book>.self, from: data) {
-                return books
-            }
-            return []
-        } set {
-            guard let value = newValue else {return}
-            defaults.set(try? PropertyListEncoder().encode(value), forKey: DefaultKeys.favorite.rawValue)
-        }
-    }
+    var favorites: [Book]?
+//    {
+//        get {
+//            if let data = defaults.object(forKey: DefaultKeys.favorite.rawValue) as? Data,
+//               let books = try? PropertyListDecoder().decode(Array<Book>.self, from: data) {
+//                return books
+//            }
+//            return []
+//        } set {
+//            guard let value = newValue else {return}
+//            defaults.set(try? PropertyListEncoder().encode(value), forKey: DefaultKeys.favorite.rawValue)
+//        }
+//    }
     
     func addMovieToFavorites(_ book: Book) {
         guard var array = favorites else {return}

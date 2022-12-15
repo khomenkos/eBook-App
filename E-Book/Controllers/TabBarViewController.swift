@@ -12,7 +12,7 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        view.backgroundColor = .systemBackground
+        tabBar.backgroundColor = .systemBackground
         tabBar.tintColor = .label
         setupTabBar()
     }

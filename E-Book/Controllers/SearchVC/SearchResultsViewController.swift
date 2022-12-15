@@ -17,7 +17,7 @@ class SearchResultsViewController: UIViewController {
     
     public weak var delegate: SearchResultsViewControllerDelegate?
 
-    public let searchResultsViewController: UITableView = {
+    public let searchResultsTable: UITableView = {
         let table = UITableView()
         table.backgroundColor = .clear
         table.separatorStyle = .none
@@ -32,15 +32,16 @@ class SearchResultsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        view.addSubview(searchResultsViewController)
+        view.addSubview(searchResultsTable)
         
-        searchResultsViewController.delegate = self
-        searchResultsViewController.dataSource = self
+        searchResultsTable.delegate = self
+        searchResultsTable.dataSource = self
+        searchResultsTable.keyboardDismissMode = .onDrag
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        searchResultsViewController.frame = view.bounds
+        searchResultsTable.frame = view.bounds
     }
     
 }

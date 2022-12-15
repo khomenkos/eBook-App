@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 enum Sections: Int {
     case recommended = 0
@@ -60,32 +61,43 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier) as? CollectionViewTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         
+        ProgressHUD.show()
+        
         switch indexPath.section {
         case Sections.recommended.rawValue:
             ApiManager.shared.getRecommendedBooks { results in
                 switch results {
                 case .success(let books):
+                    ProgressHUD.dismiss()
                     cell.configure(with: books)
                 case .failure(let error):
                     print(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+                        self.showAlert(title: "Check your internet connection.", message: "Try again?", actionTitle: "Connect") {
+                            tableView.reloadData()
+                        }
+                    }
                 }
             }
         case Sections.trendingBooks.rawValue:
             ApiManager.shared.getTrendingBooks { results in
                 switch results {
                 case .success(let books):
+                    ProgressHUD.dismiss()
                     cell.configure(with: books)
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
                 }
             }
         case Sections.topBooks.rawValue:
             ApiManager.shared.getTopBooks { results in
                 switch results {
                 case .success(let books):
+                    ProgressHUD.dismiss()
                     cell.configure(with: books)
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
                 }
             }
         default:

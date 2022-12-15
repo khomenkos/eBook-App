@@ -18,7 +18,7 @@ class PreviewTableViewCell: UITableViewCell {
     
     
     func setup(book: Book) {
-        myImage.sd_setImage(with: book.volumeInfo?.imageLinks?.thumbnail?.asUrl)
+        myImage.sd_setImage(with: book.volumeInfo?.imageLinks?.thumbnail?.asUrl ?? Constants.defaultImage.asUrl)
         titleLabel.text = book.volumeInfo?.title
         authorsLabel.text = book.volumeInfo?.authors?.first
         ratingLabel.text = "\(book.volumeInfo?.averageRating ?? 0)/5"
