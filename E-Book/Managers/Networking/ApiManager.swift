@@ -24,13 +24,13 @@ struct ApiManager {
         request(route: .getTopBooks, method: .get, completion: completion)
     }
     
-    func getSearchView(completion: @escaping(Result<[Book], Error>) -> Void) {
-        request(route: .getSearchView, method: .get, completion: completion)
+    func getSearchView(type: String, orderBy: String?, filter: String?, completion: @escaping(Result<[Book], Error>) -> Void) {
+        request(route: .getSearchView(type, orderBy, filter), method: .get, completion: completion)
     }
     
-    func search(with query: String, completion: @escaping(Result<[Book], Error>) -> Void) {
+    func search(with query: String, type: String, orderBy: String?, filter: String?, completion: @escaping(Result<[Book], Error>) -> Void) {
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        request(route: .search(query), method: .get, completion: completion)
+        request(route: .search(query, type, orderBy, filter), method: .get, completion: completion)
     }
     
 //    func getBookByID(with id: String, completion: @escaping(Result<Book, Error>) -> Void) {

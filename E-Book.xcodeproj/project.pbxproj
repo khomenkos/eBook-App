@@ -203,10 +203,10 @@
 				E3A169F5293390C1008F59F9 /* Controllers */,
 				E3D5F7702949D8AE001287E7 /* AppDelegate */,
 				E37486F22930F0AB00181290 /* Assets.xcassets */,
+				E3D5F7712949D9B9001287E7 /* Colors.xcassets */,
 				E37486F42930F0AB00181290 /* LaunchScreen.storyboard */,
 				E3D5F7732949DEE8001287E7 /* swiftBook.pdf */,
 				E37486F72930F0AB00181290 /* Info.plist */,
-				E3D5F7712949D9B9001287E7 /* Colors.xcassets */,
 			);
 			path = "E-Book";
 			sourceTree = "<group>";
