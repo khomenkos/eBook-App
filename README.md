@@ -24,6 +24,7 @@ A simple Book Search App using the public API.
 - WebKit to buy a book or view additional information.
 - Search filtering.
 - Sorting by relevance/newest.
+- Infinite Scroll & Pagination TableView.
 
 ## Third Party Libraries
 
