@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct ApiManager {
+class ApiManager {
     static let shared = ApiManager()
     
     private init() {}
-    
+        
     func getRecommendedBooks(completion: @escaping(Result<[Book], Error>) -> Void) {
         request(route: .getRecommendedBooks, method: .get, completion: completion)
     }
@@ -24,8 +24,11 @@ struct ApiManager {
         request(route: .getTopBooks, method: .get, completion: completion)
     }
     
-    func getSearchView(type: String, orderBy: String?, filter: String?, completion: @escaping(Result<[Book], Error>) -> Void) {
-        request(route: .getSearchView(type, orderBy, filter), method: .get, completion: completion)
+    func getSearchView(type: String, orderBy: String?, filter: String?, startIndex: Int?, completion: @escaping(Result<[Book], Error>) -> Void) {
+
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5, execute: {
+            self.request(route: .getSearchView(type, orderBy, filter, startIndex), method: .get, completion: completion)
+        })
     }
     
     func search(with query: String, type: String, orderBy: String?, filter: String?, completion: @escaping(Result<[Book], Error>) -> Void) {
@@ -33,10 +36,10 @@ struct ApiManager {
         request(route: .search(query, type, orderBy, filter), method: .get, completion: completion)
     }
     
-//    func getBookByID(with id: String, completion: @escaping(Result<Book, Error>) -> Void) {
-//        request(route: .getBookByID(id), method: .get, completion: completion)
-//    }
-
+    //    func getBookByID(with id: String, completion: @escaping(Result<Book, Error>) -> Void) {
+    //        request(route: .getBookByID(id), method: .get, completion: completion)
+    //    }
+    
     
     private func request<T: Codable> (route: Route,
                                       method: Method,
@@ -59,7 +62,7 @@ struct ApiManager {
             }
             
             DispatchQueue.main.async {
-                handleResponse(result: result, completion: completion )
+                self.handleResponse(result: result, completion: completion )
             }
         }.resume()
     }

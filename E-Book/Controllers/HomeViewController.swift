@@ -33,6 +33,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(homeTable)
         view.backgroundColor = .systemBackground
+        
         homeTable.delegate = self
         homeTable.dataSource = self
         
@@ -62,7 +63,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         
         ProgressHUD.show()
-        
         switch indexPath.section {
         case Sections.recommended.rawValue:
             ApiManager.shared.getRecommendedBooks { results in

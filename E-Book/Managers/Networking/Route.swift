@@ -17,7 +17,7 @@ enum Route {
     case getRecommendedBooks
     case getTrendingBooks
     case getTopBooks
-    case getSearchView(String, String?, String?)
+    case getSearchView(String, String?, String?, Int?)
     case search(String, String, String?, String?)
     case getBookByID(String)
     
@@ -26,9 +26,10 @@ enum Route {
         case .getRecommendedBooks: return "?q=intitle:keyes&key="
         case .getTrendingBooks: return "?q=inauthor:Whitehead&key="
         case .getTopBooks: return "?q=inauthor:Smith&key="
-        case .getSearchView(let type, let sort, let filter):
-            return "?q=thenewyorktimes&printType=\(type)&orderBy=\(sort?.lowercased() ?? "relevance")\(filter?.lowercased() ?? "")&key="
-        case .search(let query, let type, let sort, let filter): return "?q=\(query)&printType=\(type)&orderBy=\(sort?.lowercased() ?? "relevance")\(filter?.lowercased() ?? "")&key="
+        case .getSearchView(let type, let sort, let filter, let startIndex):
+            return "?q=thenewyorktimes&printType=\(type)&orderBy=\(sort?.lowercased() ?? "relevance")\(filter?.lowercased() ?? "")&startIndex=\(startIndex ?? 0)&key="
+        case .search(let query, let type, let sort, let filter):
+            return "?q=\(query)&printType=\(type)&orderBy=\(sort?.lowercased() ?? "relevance")\(filter?.lowercased() ?? "")&key="
         case .getBookByID(let byID): return "/\(byID)"
         }
     }

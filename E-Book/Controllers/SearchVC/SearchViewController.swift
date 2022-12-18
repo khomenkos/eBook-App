@@ -28,6 +28,16 @@ class SearchViewController: UIViewController {
     private var filter: String? = nil
     private var sort: String? = nil
     private var type = 0
+    private var startIndex = 0
+    
+    private lazy var spinnerFooter: UIView = {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
+        let spinner = UIActivityIndicatorView()
+        spinner.center = footerView.center
+        footerView.addSubview(spinner)
+        spinner.startAnimating()
+        return footerView
+    }()
     
     private let searchTable: UITableView = {
         let table = UITableView()
@@ -66,8 +76,7 @@ class SearchViewController: UIViewController {
         
         searchController.searchResultsUpdater = self
         searchTable.tableHeaderView = segmentedControl
-        
-        fetchData(type: items[type], orderBy: sort, filter: filter)
+        fetchData(type: items[type], orderBy: sort, filter: filter, startIndex: startIndex)
         
         // Setting navigation bar
         title = "Search"
@@ -91,7 +100,8 @@ class SearchViewController: UIViewController {
     
     @objc func segmentedValueChanged(_ sender:UISegmentedControl!) {
         type = segmentedControl.selectedSegmentIndex
-        fetchData(type: items[type], orderBy: sort, filter: filter)
+        startIndex = 0
+        fetchData(type: items[type], orderBy: sort, filter: filter, startIndex: startIndex)
     }
     
     @objc func sortAction() {
@@ -116,24 +126,26 @@ class SearchViewController: UIViewController {
     
     func alertSortAction(_ action: UIAlertAction) {
         sort = action.title
-        fetchData(type: items[type], orderBy: sort, filter: filter)
+        startIndex = 0
+        fetchData(type: items[type], orderBy: sort, filter: filter, startIndex: startIndex)
     }
     
     func alertFilterAction(_ action: UIAlertAction) {
+        startIndex = 0
         if action.style == .destructive{
             filter = nil
-            fetchData(type: items[type], orderBy: sort, filter: filter)
+            fetchData(type: items[type], orderBy: sort, filter: filter, startIndex: startIndex)
         } else {
             filter = action.title
         }
         guard let filterAction = filter else { return }
-        fetchData(type: items[type], orderBy: sort, filter: "&filter=\(filterAction)")
+        fetchData(type: items[type], orderBy: sort, filter: "&filter=\(filterAction)", startIndex: startIndex)
         filter = "&filter=\(action.title ?? "paid-ebooks")"
     }
     
-    private func fetchData(type: String, orderBy: String?, filter: String?) {
+    private func fetchData(type: String, orderBy: String?, filter: String?, startIndex: Int) {
         ProgressHUD.show()
-        ApiManager.shared.getSearchView(type: type, orderBy: orderBy, filter: filter) { [weak self] result in
+        ApiManager.shared.getSearchView(type: type, orderBy: orderBy, filter: filter, startIndex: startIndex) { [weak self] result in
             switch result {
             case .success(let books):
                 ProgressHUD.dismiss()
@@ -172,6 +184,27 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         vc.book = books[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == books.count - 1 {
+            self.searchTable.tableFooterView = spinnerFooter
+            startIndex += 10
+            ApiManager.shared.getSearchView(type: items[type], orderBy: sort, filter: filter, startIndex: startIndex) { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.searchTable.tableFooterView = nil
+                }
+                switch result {
+                case .success(let books):
+                    self?.books.append(contentsOf: books)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.searchTable.reloadData()
+                    }
+                case .failure(let error):
+                    ProgressHUD.showError(error.localizedDescription)
+                }
+            }
+        }
+    }
 }
 
 extension SearchViewController: UISearchResultsUpdating, SearchResultsViewControllerDelegate {
@@ -188,13 +221,11 @@ extension SearchViewController: UISearchResultsUpdating, SearchResultsViewContro
         guard let query = searchBar.text,
               !query.trimmingCharacters(in: .whitespaces).isEmpty,
               //query.trimmingCharacters(in: .whitespaces).count >= 3,
-              
-                let resultController = searchController.searchResultsController as? SearchResultsViewController else { return }
+              let resultController = searchController.searchResultsController as? SearchResultsViewController else { return }
         ProgressHUD.show()
         resultController.delegate = self
         
         ApiManager.shared.search(with: query, type: items[type], orderBy: sort, filter: filter) { result in
-            
             DispatchQueue.main.async {
                 switch result {
                 case .success(let books):
